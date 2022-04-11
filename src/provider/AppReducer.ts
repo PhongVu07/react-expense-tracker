@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IAction, IState } from "../types";
+import { IAction, IState } from "types";
 
 export default (state: IState, action: IAction): IState => {
   switch (action.type) {
