@@ -1,12 +1,18 @@
 import React from 'react';
 import './App.css';
-import TotalExpense from 'components/TotalExpense';
 import { Provider } from 'provider';
+import TotalExpense from 'components/TotalExpense';
+import ExpenseList from 'components/ExpenseList';
+import AddExpense from 'components/AddExpense';
 
 function App() {
   return (
     <Provider>
-      <TotalExpense />
+      <>
+        <TotalExpense />
+        <ExpenseList />
+        <AddExpense />
+      </>
     </Provider>
     );
 }

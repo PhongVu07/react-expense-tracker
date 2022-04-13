@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { IAction, IState } from "types";
-import { ActionType } from "../constants";
+import { getFromLocalStorage } from "utils/storage";
+import { LocalStorageDataName } from "../constants";
 import AppReducer from "./AppReducer";
 
 const initialState: IState = {
-  expenses: [],
+  expenses: getFromLocalStorage(LocalStorageDataName.EXPENSES),
+  expenseTypes: getFromLocalStorage(LocalStorageDataName.EXPENSE_TYPE),
 };
 
 export const GlobalContext = createContext<{
@@ -19,14 +21,6 @@ export const useStore = () => {
 
 export const Provider = ({ children }: { children: React.ReactChild }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-
-  const deleteTransaction = (id: string) => {
-    dispatch({ type: ActionType.DELETE, payload: { id } });
-  };
-
-  const addExpenses = (expenseName: string, amount: number) => {
-    dispatch({ type: ActionType.ADD, payload: { expenseName, amount } });
-  };
 
   return (
     <GlobalContext.Provider value={{ state, dispatch }}>

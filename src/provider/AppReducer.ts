@@ -1,20 +1,35 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IAction, IState } from "types";
+import { saveToLocalStorage } from 'utils/storage';
+import { LocalStorageDataName } from '../constants';
 
 export default (state: IState, action: IAction): IState => {
   switch (action.type) {
     case 'delete': {
-      console.log(state);
-      return state;
+      const newExpenses = state.expenses.filter(({ id }) => id !== action.payload.id);
+      saveToLocalStorage(LocalStorageDataName.EXPENSES, newExpenses)
+      return {...state, expenses: newExpenses};
     }
     case 'add': {
+      const { expenseName, amount, date, type } = action.payload;
+
       const newExpenses = state.expenses.slice();
       newExpenses.push({
         id: uuidv4(),
-        expenseName: action.payload.expenseName,
-        amount: Number(action.payload.amount)
+        expenseName,
+        amount,
+        date,
+        type
       });
-      return { expenses: newExpenses };
+
+      const newExpenseTypes = state.expenseTypes.slice()
+      if (!newExpenseTypes.some(expenseType => expenseType === type)) {
+        newExpenseTypes.push(type)
+      }
+
+      saveToLocalStorage(LocalStorageDataName.EXPENSES, newExpenses)
+      saveToLocalStorage(LocalStorageDataName.EXPENSE_TYPE, newExpenseTypes)
+      return { expenses: newExpenses, expenseTypes: newExpenseTypes };
     }
     default:
       return state;

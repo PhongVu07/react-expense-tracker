@@ -4,6 +4,8 @@ export interface IExpense {
     id?: string
     expenseName: string
     amount: number
+    date: string
+    type: string
 }
 
 export interface IAddExpense {
@@ -14,7 +16,7 @@ export interface IAddExpense {
 export interface IDeleteExpense {
     type: ActionType.DELETE,
     payload: {
-        id: string
+        id?: string
     }
 }
 
@@ -22,4 +24,5 @@ export type IAction = IAddExpense | IDeleteExpense
 
 export interface IState {
     expenses: IExpense[],
+    expenseTypes: string[]
 }
