@@ -2,7 +2,7 @@ import React from "react";
 import { Table, TableColumnsType } from "antd";
 import { IExpense } from "types";
 import { useStore } from "provider";
-import dayjs from "dayjs";
+import moment from "moment";
 import { ActionType } from "../../constants";
 import { ComponentContainer, DeleteIcon } from "./expenseList.style";
 
@@ -26,7 +26,7 @@ const ExpenseList = () => {
         />
       ),
     }))
-    .sort((a, b) => dayjs(b.date).diff(a.date));
+    .sort((a, b) => moment(b.date).diff(a.date));
 
   const columns: TableColumnsType<any> = [
     {
@@ -52,10 +52,10 @@ const ExpenseList = () => {
       dataIndex: "date",
       key: "date",
       sorter: {
-        compare: (a, b) => dayjs(a.date).diff(dayjs(b.date)),
+        compare: (a, b) => moment(a.date).diff(moment(b.date)),
       },
       width: "20%",
-      render: (date) => <div>{dayjs(date).format("DD/MM/YYYY")}</div>,
+      render: (date) => <div>{moment(date).format("DD/MM/YYYY")}</div>,
     },
     {
       title: "Type",
@@ -82,7 +82,7 @@ const ExpenseList = () => {
         scroll={{ x: 600 }}
         columns={columns}
         dataSource={tableExpensesData}
-        pagination={{ position: ["bottomCenter"], pageSize: 5 }}
+        pagination={{ position: ["bottomCenter"], pageSize: 4 }}
       />
     </ComponentContainer>
   );

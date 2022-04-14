@@ -4,7 +4,7 @@ import CreatableSelect from "react-select/creatable";
 import { selectCustomStyles } from "./expenseModal.style";
 import { useStore } from "provider";
 import { ActionType } from "../../../../constants";
-import dayjs from "dayjs";
+import moment from "moment";
 
 interface IExpenseModalProps {
   isVisible: boolean;
