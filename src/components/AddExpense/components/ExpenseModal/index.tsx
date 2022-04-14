@@ -4,11 +4,16 @@ import CreatableSelect from "react-select/creatable";
 import { selectCustomStyles } from "./expenseModal.style";
 import { useStore } from "provider";
 import { ActionType } from "../../../../constants";
+import dayjs from "dayjs";
 
 interface IExpenseModalProps {
   isVisible: boolean;
   setIsVisible: (isVisible: boolean) => void;
 }
+
+const formatRequiredRule = (fieldName: string) => {
+  return [{ required: true, message: `${fieldName} is required` }];
+};
 
 const ExpenseModal = ({ isVisible, setIsVisible }: IExpenseModalProps) => {
   const [form] = Form.useForm();
@@ -50,15 +55,20 @@ const ExpenseModal = ({ isVisible, setIsVisible }: IExpenseModalProps) => {
         name="expense-form"
         labelCol={{ span: 24, offset: 0 }}
         wrapperCol={{ span: 24, offset: 0 }}
+        initialValues={{ amount: 0 }}
       >
         <Form.Item
           name="expenseName"
           label="Expense"
-          rules={[{ required: true }]}
+          rules={formatRequiredRule("Expense Name")}
         >
           <Input placeholder="Eg: Morning coffee" />
         </Form.Item>
-        <Form.Item name="amount" label="Amount" rules={[{ required: true }]}>
+        <Form.Item
+          name="amount"
+          label="Amount"
+          rules={formatRequiredRule("Expense Amount")}
+        >
           <InputNumber
             style={{ width: "50%" }}
             placeholder="Eg: 2"
@@ -66,13 +76,17 @@ const ExpenseModal = ({ isVisible, setIsVisible }: IExpenseModalProps) => {
             formatter={(value: number = 0) => `$ ${value}`}
           />
         </Form.Item>
-        <Form.Item name="date" label="Date" rules={[{ required: true }]}>
-          <DatePicker />
+        <Form.Item
+          name="date"
+          label="Date"
+          rules={formatRequiredRule("Expense Date")}
+        >
+          <DatePicker format="DD/MM/YYYY"     />
         </Form.Item>
         <Form.Item
           name="type"
           label="Expense Type"
-          rules={[{ required: true }]}
+          rules={formatRequiredRule("Expense Type")}
         >
           <CreatableSelect
             styles={selectCustomStyles}

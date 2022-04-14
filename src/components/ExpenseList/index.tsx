@@ -1,10 +1,10 @@
 import React from "react";
-import { Table, TableColumnsType, Space } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
+import { Table, TableColumnsType } from "antd";
 import { IExpense } from "types";
 import { useStore } from "provider";
 import dayjs from "dayjs";
 import { ActionType } from "../../constants";
+import { ComponentContainer, DeleteIcon } from "./expenseList.style";
 
 const ExpenseList = () => {
   const {
@@ -12,19 +12,21 @@ const ExpenseList = () => {
     dispatch,
   } = useStore();
 
-  const tableExpensesData = expenses.map((expense: IExpense) => ({
-    ...expense,
-    action: (
-      <DeleteFilled
-        onClick={() =>
-          dispatch({
-            type: ActionType.DELETE,
-            payload: { id: expense.id },
-          })
-        }
-      />
-    ),
-  }));
+  const tableExpensesData = expenses
+    .map((expense: IExpense) => ({
+      ...expense,
+      action: (
+        <DeleteIcon
+          onClick={() =>
+            dispatch({
+              type: ActionType.DELETE,
+              payload: { id: expense.id },
+            })
+          }
+        />
+      ),
+    }))
+    .sort((a, b) => dayjs(b.date).diff(a.date));
 
   const columns: TableColumnsType<any> = [
     {
@@ -34,7 +36,7 @@ const ExpenseList = () => {
       sorter: {
         compare: (a, b) => a.expenseName.localeCompare(b.expenseName),
       },
-      width: "30%",
+      width: "25%",
     },
     {
       title: "Amount",
@@ -68,19 +70,21 @@ const ExpenseList = () => {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      width: "10%",
+      width: "15%",
     },
   ];
 
   return (
-    <>
+    <ComponentContainer>
+      <h4>Expense History</h4>
       <Table
         rowKey="id"
+        scroll={{ x: 600 }}
         columns={columns}
         dataSource={tableExpensesData}
         pagination={{ position: ["bottomCenter"], pageSize: 5 }}
       />
-    </>
+    </ComponentContainer>
   );
 };
 
