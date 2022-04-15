@@ -55,7 +55,7 @@ const ExpenseModal = ({ isVisible, setIsVisible }: IExpenseModalProps) => {
         name="expense-form"
         labelCol={{ span: 24, offset: 0 }}
         wrapperCol={{ span: 24, offset: 0 }}
-        initialValues={{ amount: 0 }}
+        initialValues={{ amount: 0, date: moment() }}
       >
         <Form.Item
           name="expenseName"
@@ -81,7 +81,7 @@ const ExpenseModal = ({ isVisible, setIsVisible }: IExpenseModalProps) => {
           label="Date"
           rules={formatRequiredRule("Expense Date")}
         >
-          <DatePicker format="DD/MM/YYYY"     />
+          <DatePicker format="DD/MM/YYYY" />
         </Form.Item>
         <Form.Item
           name="type"

@@ -24,6 +24,7 @@ export const DetailContainer = styled.div`
     margin-bottom: 16px;
 
     &:last-of-type {
+      justify-content: start;
       margin-top: 28px;
       flex-flow: wrap;
     }

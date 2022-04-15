@@ -65,8 +65,8 @@ const TotalExpense = () => {
             <span>${totalExpense}</span>
           </div>
           <div>
-            {chartData.map((data) => (
-              <ChartLegend>
+            {chartData.map((data, i) => (
+              <ChartLegend key={i}>
                 <div style={{ backgroundColor: data.color }}></div>
                 <span>{data.name}</span>
               </ChartLegend>
