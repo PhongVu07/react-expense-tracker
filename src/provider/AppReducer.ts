@@ -3,7 +3,7 @@ import { IAction, IState } from "types";
 import { saveToLocalStorage } from 'utils/storage';
 import { LocalStorageDataName } from '../constants';
 
-export default (state: IState, action: IAction): IState => {
+const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {
     case 'delete': {
       const newExpenses = state.expenses.filter(({ id }) => id !== action.payload.id);
@@ -35,3 +35,5 @@ export default (state: IState, action: IAction): IState => {
       return state;
   }
 };
+
+export default reducer
