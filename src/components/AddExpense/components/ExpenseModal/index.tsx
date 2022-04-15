@@ -1,5 +1,5 @@
 import React from "react";
-import { DatePicker, Form, Input, InputNumber, Modal, Space } from "antd";
+import { DatePicker, Form, Input, InputNumber, Modal } from "antd";
 import CreatableSelect from "react-select/creatable";
 import { selectCustomStyles } from "./expenseModal.style";
 import { useStore } from "provider";

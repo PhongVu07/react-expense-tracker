@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button } from "antd";
 import ExpenseModal from "./components/ExpenseModal";
 import { ComponentContainer } from "./addExpense.style";
 
